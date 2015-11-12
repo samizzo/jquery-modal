@@ -49,16 +49,24 @@
   $.modal.prototype = {
     constructor: $.modal,
 
+    focus: function () {
+      if (this.options.focusElement) {
+        this.options.focusElement.focus();
+      }
+    },
+
     open: function() {
       var m = this;
       if(this.options.doFade) {
         this.block();
         setTimeout(function() {
           m.show();
+          m.focus();
         }, this.options.fadeDuration * this.options.fadeDelay);
       } else {
         this.block();
         this.show();
+        m.focus();
       }
       if (this.options.escapeClose) {
         $(document).on('keydown.modal', function(event) {
